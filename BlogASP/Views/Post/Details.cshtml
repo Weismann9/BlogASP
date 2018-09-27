@@ -1,0 +1,31 @@
+﻿@model BlogASP.Models.Post
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h1>
+        @Html.DisplayFor(model => model.Title)
+        <span class="badge badge-primary">
+            @Html.DisplayFor(model => model.Status)
+        </span>
+    </h1>
+    <hr />
+    @Html.DisplayFor(model => model.Tags)
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    <p>
+        Created at:
+        @Html.DisplayFor(model => model.Created_at)
+    </p>
+    <p>
+        Updated at:
+        @Html.DisplayFor(model => model.Updated_at)
+    </p>
+    <p>
+        @Html.DisplayFor(model => model.Content)
+    </p>
+</div>
