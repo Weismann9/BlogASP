@@ -1,4 +1,6 @@
-﻿
+﻿body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     margin-top: 20px;
@@ -13,9 +15,14 @@
     white-space: normal;
 }
 
+.tag-link {
+    font-size: 20px;
+    padding-right: 5px;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/

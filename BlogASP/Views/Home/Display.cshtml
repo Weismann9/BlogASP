@@ -1,0 +1,54 @@
+﻿@using BlogASP.Models
+
+@model Post
+
+<div>
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    <h1>
+        @Html.DisplayFor(model => model.Title)
+        <span class="badge badge-primary">
+            @Html.DisplayFor(model => model.Status)
+        </span>
+    </h1>
+
+    <p class="lead">
+        by
+        <a href="#">Start Bootstrap</a>
+    </p>
+    <ul class="nav">
+        @foreach (Tag tag in Model.Tags)
+        {
+            <li class="nav-item tag-link">
+                @Html.ActionLink(tag.Title, "TagFilter", new { tagId = tag.Id }, new { @class = "badge badge-primary" })
+            </li>
+        }
+    </ul>
+    <hr>
+    <p class="text-muted">Posted at @Html.DisplayFor(model => model.Created_at)</p>
+
+    <hr>
+
+
+    <p>
+        @Html.Raw((String)Model.Content)
+    </p>
+    <hr>
+    @{
+
+        Html.RenderPartial("~/Views/Comment/_CommentCreateForm.cshtml", (Comment)ViewBag.Comment, new ViewDataDictionary());
+    }
+
+    @foreach (Comment comment in Model.Comments)
+    {
+        <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+                <h5 class="mt-0">@comment.Author</h5>
+                <p class="text-muted">@comment.Created_at</p>
+                @comment.Content
+            </div>
+        </div>
+    }
+</div>

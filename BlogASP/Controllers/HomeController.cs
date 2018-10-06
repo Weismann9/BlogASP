@@ -1,30 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BlogASP.Models;
+using System;
 using System.Linq;
-using System.Web;
+using System.Net;
 using System.Web.Mvc;
 
 namespace BlogASP.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
-            return View();
+            var posts = db.Post.ToList();
+            return View(posts);
         }
 
-        public ActionResult About()
+        // GET: Post/Details/5
+        [HttpGet]
+        public ActionResult Display(int? id)
         {
-            ViewBag.Message = "Your application description page.";
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = db.Post.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
 
-            return View();
+            ViewBag.Comment = new Comment()
+            {
+                PostId = post.Id,
+                Created_at = DateTime.Now.ToString()
+            };
+
+            post.Comments = db.Comment.Where(c => c.PostId == post.Id).ToList();
+            return View(post);
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult CreateComment(Comment comment)
         {
-            ViewBag.Message = "Your contact page.";
+            db.Comment.Add(comment);
+            db.SaveChanges();
+            return RedirectToAction("Display", new { id = comment.PostId });
+        }
 
-            return View();
+        public ActionResult TagFilter(int tagId)
+        {
+            Tag tag = db.Tag.Find(tagId);
+            ViewBag.Title = "Пости із тегом " + tag.Title;
+            return View("Index", tag.Posts.ToList());
         }
     }
 }
