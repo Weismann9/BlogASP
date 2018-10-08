@@ -1,5 +1,8 @@
 ﻿@using BlogASP.Models
-@model IEnumerable<BlogASP.Models.Post>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@model PagedList.IPagedList<Post>
 
 @if (ViewBag.Title != null)
 {
@@ -9,7 +12,7 @@
     <h3>@ViewBag.Title</h3>
 }
 
-@foreach (var item in Model)
+@foreach (var item in (IEnumerable<Post>)Model)
 {
     <div class="card mb-4">
         @*<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">*@
@@ -29,3 +32,7 @@
         </div>
     </div>
 }
+
+Сторінка @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) з @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

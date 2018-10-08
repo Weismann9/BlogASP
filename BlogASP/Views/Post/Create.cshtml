@@ -5,7 +5,6 @@
     ViewBag.Title = "Create";
 }
 
-
 <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
 
 <h2>Create</h2>
@@ -32,14 +31,6 @@
                 @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        @*@{
-                List<Tag> tags = ViewBag.Tags;
-                foreach (Tag tag in tags)
-                {
-                    <input type="checkbox" name="selectedTags" value="@tag.Id" ) />@tag.Title<br />
-                }
-            }*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Tags, htmlAttributes: new { @class = "control-label col-md-2" })

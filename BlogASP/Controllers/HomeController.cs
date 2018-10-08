@@ -1,4 +1,5 @@
 ﻿using BlogASP.Models;
+using PagedList;
 using System;
 using System.Linq;
 using System.Net;
@@ -9,11 +10,12 @@ namespace BlogASP.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        const int pageSize = 5;
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var posts = db.Post.ToList();
-            return View(posts);
+            int pageNumber = (page ?? 1);
+            return View(db.Post.OrderBy(p => p.Id).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Post/Details/5
@@ -52,7 +54,7 @@ namespace BlogASP.Controllers
         {
             Tag tag = db.Tag.Find(tagId);
             ViewBag.Title = "Пости із тегом " + tag.Title;
-            return View("Index", tag.Posts.ToList());
+            return View("Index", tag.Posts.ToPagedList(1, pageSize));
         }
     }
 }
