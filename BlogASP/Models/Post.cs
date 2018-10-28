@@ -18,7 +18,7 @@ namespace BlogASP.Models
 
         //Relations
 
-        ////Ralation with table User (many-to-one)
+        //Relation with table User (many-to-one)
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
 
