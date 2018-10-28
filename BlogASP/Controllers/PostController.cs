@@ -97,6 +97,7 @@ namespace BlogASP.Controllers
                 Id = tag.Id,
                 Title = tag.Title
             }).ToList();
+            
             ViewBag.Tags = new MultiSelectList(tags, "Id", "Title");
             string[] statuses = { "Published", "Draft" };
             ViewBag.Statuses = new SelectList(statuses);
@@ -108,11 +109,22 @@ namespace BlogASP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Content,Tags,Status,Created_at,Updated_at")] Post post)
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "Id,Title,Content,Tags,Status,Created_at,Updated_at")] Post post, int[] selectedTags)
         {
             if (ModelState.IsValid)
             {
+
                 post.Updated_at = DateTime.Now.ToString();
+                post.Tags.Clear();
+                if (selectedTags != null)
+                {
+                    foreach (var tag in db.Tag.Where(t => selectedTags.Contains(t.Id)))
+                    {
+                        post.Tags.Add(tag);
+                    }
+                }
+
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -23,6 +23,14 @@
             <h2 class="card-title">
                 @Html.DisplayFor(modelItem => item.Title)
             </h2>
+            <ul class="nav">
+                @foreach (Tag tag in item.Tags)
+                {
+                    <li class="nav-item tag-link">
+                        @Html.ActionLink(tag.Title, "TagFilter", new { tagId = tag.Id }, new { @class = "badge badge-primary" })
+                    </li>
+                }
+            </ul>
             <div class="card-text">
                 @Html.Raw(item.Content)
             </div>

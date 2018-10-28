@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace BlogASP.Models
 {
@@ -11,6 +12,7 @@ namespace BlogASP.Models
 
         public int Id { get; set; }
         public string Title { get; set; }
+        [AllowHtml]
         public string Content { get; set; }
         public string Status { get; set; }
         public string Created_at { get; set; }

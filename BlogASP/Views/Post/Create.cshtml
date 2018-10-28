@@ -36,7 +36,6 @@
             @Html.LabelFor(model => model.Tags, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.ListBox("selectedTags", (MultiSelectList)ViewBag.Tags, new { @class = "custom-select" })
-
                 @Html.ValidationMessageFor(model => model.Tags, "", new { @class = "text-danger" })
             </div>
         </div>
