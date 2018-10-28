@@ -17,31 +17,34 @@
 
 @foreach (var item in (IEnumerable<Post>)Model)
 {
-    <div class="card mb-4">
-        @*<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">*@
-        <div class="card-body">
-            <h2 class="card-title">
-                @Html.DisplayFor(modelItem => item.Title)
-            </h2>
-            <ul class="nav">
-                @foreach (Tag tag in item.Tags)
-                {
-                    <li class="nav-item tag-link">
-                        @Html.ActionLink(tag.Title, "TagFilter", new { tagId = tag.Id }, new { @class = "badge badge-primary" })
-                    </li>
-                }
-            </ul>
-            <div class="card-text">
-                @Html.Raw(item.Content)
+    if (item.Status == "Published")
+    {
+        <div class="card mb-4">
+            @*<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">*@
+            <div class="card-body">
+                <h2 class="card-title">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </h2>
+                <ul class="nav">
+                    @foreach (Tag tag in item.Tags)
+                    {
+                        <li class="nav-item tag-link">
+                            @Html.ActionLink(tag.Title, "TagFilter", new { tagId = tag.Id }, new { @class = "badge badge-primary" })
+                        </li>
+                    }
+                </ul>
+                <div class="card-text">
+                    @Html.Raw(item.Content)
+                </div>
+                @Html.ActionLink("Read more", "Display", new { id = item.Id }, new { @class = "btn btn-primary" })
             </div>
-            @Html.ActionLink("Read more", "Display", new { id = item.Id }, new { @class = "btn btn-primary" })
+            <div class="card-footer text-muted">
+                Posted on
+                @Html.DisplayFor(modelItem => item.Created_at) by
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </div>
         </div>
-        <div class="card-footer text-muted">
-            Posted on
-            @Html.DisplayFor(modelItem => item.Created_at) by
-            @Html.DisplayFor(modelItem => item.User.UserName)
-        </div>
-    </div>
+    }
 }
 
 Сторінка @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) з @Model.PageCount

@@ -46,13 +46,14 @@ namespace BlogASP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Content,Status,Created_at,Author,Email")] Comment comment)
+        public ActionResult Create([Bind(Include = "Id,Content,Status,Created_at,Author,Email,PostId")] Comment comment, int postId)
         {
             if (ModelState.IsValid)
             {
+                comment.PostId = postId;
                 db.Comment.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "Post", new { id = comment.PostId });
             }
 
             return View(comment);
@@ -78,13 +79,13 @@ namespace BlogASP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Content,Status,Created_at,Author,Email")] Comment comment)
+        public ActionResult Edit([Bind(Include = "Id,Content,Status,Created_at,Author,Email,PostId")] Comment comment)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "Post", new { id = comment.PostId });
             }
             return View(comment);
         }
@@ -110,9 +111,10 @@ namespace BlogASP.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Comment comment = db.Comment.Find(id);
+            var postId = comment.PostId;
             db.Comment.Remove(comment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit", "Post", new { id = postId });
         }
 
         protected override void Dispose(bool disposing)
