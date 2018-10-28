@@ -1,6 +1,9 @@
 ﻿@using BlogASP.Models
 @model IEnumerable<BlogASP.Models.Post>
 
+@{ 
+}
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -9,9 +12,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Content)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Tags)
         </th>
@@ -33,9 +36,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Content)
-            </td>
+            </td>*@
             <td>
                 @foreach (Tag tag in item.Tags)
                 {

@@ -44,7 +44,9 @@ namespace BlogASP.Controllers
                 Id = tag.Id,
                 Title = tag.Title
             }).ToList();
+            string[] statuses = { "Published", "Draft" };
             ViewBag.Tags = new MultiSelectList(tags, "Id", "Title");
+            ViewBag.Statuses = new SelectList(statuses);
             return View();
         }
 
@@ -90,6 +92,14 @@ namespace BlogASP.Controllers
             {
                 return HttpNotFound();
             }
+            var tags = db.Tag.Select(tag => new
+            {
+                Id = tag.Id,
+                Title = tag.Title
+            }).ToList();
+            ViewBag.Tags = new MultiSelectList(tags, "Id", "Title");
+            string[] statuses = { "Published", "Draft" };
+            ViewBag.Statuses = new SelectList(statuses);
             return View(post);
         }
 

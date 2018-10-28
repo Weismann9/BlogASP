@@ -7,9 +7,9 @@
 <div>
     <h1>
         @Html.DisplayFor(model => model.Title)
-        <span class="badge badge-primary">
+        @*<span class="badge badge-primary">
             @Html.DisplayFor(model => model.Status)
-        </span>
+        </span>*@
     </h1>
     <hr />
     @Html.DisplayFor(model => model.Tags)
@@ -26,6 +26,6 @@
         @Html.DisplayFor(model => model.Updated_at)
     </p>
     <p>
-        @Html.DisplayFor(model => model.Content)
+        @Html.Raw(Model.Content)
     </p>
 </div>

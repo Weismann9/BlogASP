@@ -8,15 +8,11 @@
     </p>
     <h1>
         @Html.DisplayFor(model => model.Title)
-        <span class="badge badge-primary">
-            @Html.DisplayFor(model => model.Status)
-        </span>
+        @*<span class="badge badge-primary">
+                @Html.DisplayFor(model => model.Status)
+            </span>*@
     </h1>
 
-    <p class="lead">
-        by
-        <a href="#">Start Bootstrap</a>
-    </p>
     <ul class="nav">
         @foreach (Tag tag in Model.Tags)
         {
@@ -35,20 +31,21 @@
         @Html.Raw((String)Model.Content)
     </p>
     <hr>
-    @{
-
-        Html.RenderPartial("~/Views/Comment/_CommentCreateForm.cshtml", (Comment)ViewBag.Comment, new ViewDataDictionary());
-    }
-
+    <h2>Comments</h2>
     @foreach (Comment comment in Model.Comments)
     {
         <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            @*<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">*@
             <div class="media-body">
                 <h5 class="mt-0">@comment.Author</h5>
                 <p class="text-muted">@comment.Created_at</p>
                 @comment.Content
             </div>
         </div>
+    }
+
+    @{
+
+        Html.RenderPartial("~/Views/Comment/_CommentCreateForm.cshtml", (Comment)ViewBag.Comment, new ViewDataDictionary());
     }
 </div>
