@@ -112,11 +112,11 @@ namespace BlogASP.Controllers
         [ValidateInput(false)]
         public ActionResult Edit([Bind(Include = "Id,Title,Content,Tags,Status,Created_at,Updated_at")] Post post, int[] selectedTags)
         {
+            db.Entry(post).State = EntityState.Deleted;
+            db.SaveChanges();
             if (ModelState.IsValid)
             {
-
                 post.Updated_at = DateTime.Now.ToString();
-                post.Tags.Clear();
                 if (selectedTags != null)
                 {
                     foreach (var tag in db.Tag.Where(t => selectedTags.Contains(t.Id)))
@@ -124,8 +124,7 @@ namespace BlogASP.Controllers
                         post.Tags.Add(tag);
                     }
                 }
-
-                db.Entry(post).State = EntityState.Modified;
+                db.Entry(post).State = EntityState.Added;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -5,7 +5,7 @@
 <div class="card my-4">
     <h5 class="card-header">Leave a Comment:</h5>
     <div class="card-body">
-        @using (Html.BeginForm("CreateComment", "Home", FormMethod.Post))
+        @using (Html.BeginForm("CreateComment", "Comment", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
 

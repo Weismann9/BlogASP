@@ -42,14 +42,6 @@ namespace BlogASP.Controllers
             return View(post);
         }
 
-        [HttpPost]
-        public ActionResult CreateComment(Comment comment)
-        {
-            db.Comment.Add(comment);
-            db.SaveChanges();
-            return RedirectToAction("Display", new { id = comment.PostId });
-        }
-
         public ActionResult TagFilter(int tagId)
         {
             Tag tag = db.Tag.Find(tagId);

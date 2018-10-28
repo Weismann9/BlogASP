@@ -123,5 +123,13 @@ namespace BlogASP.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [HttpPost]
+        public ActionResult CreateComment(Comment comment)
+        {
+            db.Comment.Add(comment);
+            db.SaveChanges();
+            return RedirectToAction("Display", "Home", new { id = comment.PostId });
+        }
     }
 }

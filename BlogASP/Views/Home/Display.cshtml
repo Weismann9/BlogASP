@@ -45,7 +45,6 @@
     }
 
     @{
-
-        Html.RenderPartial("~/Views/Comment/_CommentCreateForm.cshtml", (Comment)ViewBag.Comment, new ViewDataDictionary());
+        Html.RenderPartial("~/Views/Comment/_CommentCreateForm.cshtml", (Comment)ViewBag.Comment);
     }
 </div>
