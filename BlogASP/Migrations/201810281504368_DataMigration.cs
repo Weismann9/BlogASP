@@ -3,7 +3,7 @@ namespace BlogASP.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class DataMigration : DbMigration
     {
         public override void Up()
         {
@@ -15,10 +15,10 @@ namespace BlogASP.Migrations
                         Author = c.String(),
                         Content = c.String(),
                         Created_at = c.String(),
-                        PostId = c.Int(),
+                        PostId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Posts", t => t.PostId)
+                .ForeignKey("dbo.Posts", t => t.PostId, cascadeDelete: true)
                 .Index(t => t.PostId);
             
             CreateTable(
@@ -132,13 +132,13 @@ namespace BlogASP.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Comments", "PostId", "dbo.Posts");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Posts", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.TagPosts", "Post_Id", "dbo.Posts");
             DropForeignKey("dbo.TagPosts", "Tag_Id", "dbo.Tags");
-            DropForeignKey("dbo.Comments", "PostId", "dbo.Posts");
             DropIndex("dbo.TagPosts", new[] { "Post_Id" });
             DropIndex("dbo.TagPosts", new[] { "Tag_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");

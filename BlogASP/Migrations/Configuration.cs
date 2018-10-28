@@ -9,8 +9,7 @@ namespace BlogASP.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-            ContextKey = "BlogASP.Models.ApplicationDbContext";
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(BlogASP.Models.ApplicationDbContext context)

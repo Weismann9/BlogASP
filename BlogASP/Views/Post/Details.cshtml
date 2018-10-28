@@ -1,4 +1,5 @@
-﻿@model BlogASP.Models.Post
+﻿@using BlogASP.Models
+@model Post
 
 @{
     ViewBag.Title = "Details";
@@ -12,7 +13,14 @@
         </span>*@
     </h1>
     <hr />
-    @Html.DisplayFor(model => model.Tags)
+    <ul class="nav">
+        @foreach (Tag tag in Model.Tags)
+        {
+            <li class="nav-item tag-link">
+                @Html.ActionLink(tag.Title, "TagFilter", new { tagId = tag.Id }, new { @class = "badge badge-primary" })
+            </li>
+        }
+    </ul>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
         @Html.ActionLink("Back to List", "Index")

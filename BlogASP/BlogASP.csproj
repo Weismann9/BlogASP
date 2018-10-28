@@ -211,13 +211,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201810021724236_InitialCreate.cs" />
-    <Compile Include="Migrations\201810021724236_InitialCreate.Designer.cs">
-      <DependentUpon>201810021724236_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810021726431_Data-migration.cs" />
-    <Compile Include="Migrations\201810021726431_Data-migration.Designer.cs">
-      <DependentUpon>201810021726431_Data-migration.cs</DependentUpon>
+    <Compile Include="Migrations\201810281504368_DataMigration.cs" />
+    <Compile Include="Migrations\201810281504368_DataMigration.Designer.cs">
+      <DependentUpon>201810281504368_DataMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -362,11 +358,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810021724236_InitialCreate.resx">
-      <DependentUpon>201810021724236_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810021726431_Data-migration.resx">
-      <DependentUpon>201810021726431_Data-migration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810281504368_DataMigration.resx">
+      <DependentUpon>201810281504368_DataMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
