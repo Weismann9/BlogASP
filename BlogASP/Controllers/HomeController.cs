@@ -48,5 +48,18 @@ namespace BlogASP.Controllers
             ViewBag.Title = "Пости із тегом " + tag.Title;
             return View("Index", tag.Posts.ToPagedList(1, pageSize));
         }
+
+        [HttpPost]
+        public ActionResult Search(string search_request)
+        {
+            if (!String.IsNullOrEmpty(search_request))
+            {
+                var posts = db.Post.Where(p => p.Title.Contains(search_request)).OrderBy(p => p.Id);
+                ViewBag.Title = "Пости із назвою " + search_request;
+                ViewBag.SearchRequest = search_request;
+                return View("Index", posts.ToPagedList(1, pageSize));
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
